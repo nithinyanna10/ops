@@ -19,6 +19,11 @@ services:
         value: "5678"
       - key: GENERIC_TIMEZONE
         value: America/New_York
+      # Single-container demo: no sidecar runners, no Python Code node
+      - key: N8N_RUNNERS_ENABLED
+        value: "false"
+      - key: N8N_PYTHON_ENABLED
+        value: "false"
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
       - key: N8N_BASIC_AUTH_ACTIVE

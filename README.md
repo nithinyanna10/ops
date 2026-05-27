@@ -67,6 +67,18 @@ Defined in `render.yaml`:
 | `N8N_HOST` | `fromService` → `property: host` |
 | `WEBHOOK_URL` | `fromService` → `RENDER_EXTERNAL_URL` |
 | `PORT` | `5678` (Render routing hint) |
+| `N8N_RUNNERS_ENABLED` | `false` (no sidecar on free tier) |
+| `N8N_PYTHON_ENABLED` | `false` (official image has no Python 3) |
+
+### Startup log messages
+
+| Log | Meaning |
+|-----|---------|
+| `Task Broker ready on 127.0.0.1, port 5679` | Task runners are on (default in newer n8n). Harmless; set `N8N_RUNNERS_ENABLED=false` to skip for this minimal deploy. |
+| `Failed to start Python task runner...` | Internal Python runner tried to start; the slim image has no Python. Safe to ignore if you do not use Python in the Code node; `N8N_PYTHON_ENABLED=false` disables that option in the UI. |
+| `[license SDK] Skipping renewal on init` | Normal for self-hosted/community — no enterprise license. Not an error. |
+
+If the UI loads at your `onrender.com` URL, the service is healthy despite these lines.
 
 ## Pin n8n version (optional)
 
