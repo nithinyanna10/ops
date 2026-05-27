@@ -1,0 +1,41 @@
+# Render Blueprint: n8n on Docker (free-tier friendly, no custom server)
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: n8n
+    runtime: image
+    plan: free
+    image:
+      url: docker.io/n8nio/n8n:latest
+    healthCheckPath: /healthz
+    envVars:
+      # Helps Render route traffic to n8n's default listen port
+      - key: PORT
+        value: "5678"
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_PORT
+        value: "5678"
+      - key: GENERIC_TIMEZONE
+        value: America/New_York
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        generateValue: true
+      # Public hostname (e.g. n8n-xxxx.onrender.com) — not hardcoded
+      - key: N8N_HOST
+        fromService:
+          type: web
+          name: n8n
+          property: host
+      # Full public URL (e.g. https://n8n-xxxx.onrender.com) from Render
+      - key: WEBHOOK_URL
+        fromService:
+          type: web
+          name: n8n
+          envVarKey: RENDER_EXTERNAL_URL
