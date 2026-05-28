@@ -1,18 +1,5 @@
-# OS
-.DS_Store
-Thumbs.db
-
-# Editors
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# Env / secrets (do not commit)
 .env
-.env.*
-!.env.example
-
-# Logs
-*.log
+.env.local
+.DS_Store
+node_modules
+.n8n

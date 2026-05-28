@@ -1,46 +1,38 @@
-# Render Blueprint: n8n on Docker (free-tier friendly, no custom server)
-# https://render.com/docs/blueprint-spec
-
 services:
   - type: web
-    name: n8n
-    runtime: image
+    name: n8n-revops
+    runtime: docker
     plan: free
-    image:
-      url: docker.io/n8nio/n8n:latest
-    healthCheckPath: /healthz
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
     envVars:
-      # Helps Render route traffic to n8n's default listen port
-      - key: PORT
-        value: "5678"
       - key: N8N_PROTOCOL
         value: https
       - key: N8N_PORT
-        value: "5678"
+        value: 5678
+      - key: PORT
+        value: 5678
+      - key: N8N_LISTEN_ADDRESS
+        value: 0.0.0.0
       - key: GENERIC_TIMEZONE
         value: America/New_York
-      # Single-container demo: no sidecar runners, no Python Code node
-      - key: N8N_RUNNERS_ENABLED
-        value: "false"
-      - key: N8N_PYTHON_ENABLED
-        value: "false"
-      - key: N8N_ENCRYPTION_KEY
-        generateValue: true
+
       - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
+        value: true
       - key: N8N_BASIC_AUTH_USER
         value: admin
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true
-      # Public hostname (e.g. n8n-xxxx.onrender.com) — not hardcoded
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: false
+      - key: N8N_PERSONALIZATION_ENABLED
+        value: false
+
+      # Update these after Render gives you the final service URL
       - key: N8N_HOST
-        fromService:
-          type: web
-          name: n8n
-          property: host
-      # Full public URL (e.g. https://n8n-xxxx.onrender.com) from Render
+        value: n8n-revops.onrender.com
       - key: WEBHOOK_URL
-        fromService:
-          type: web
-          name: n8n
-          envVarKey: RENDER_EXTERNAL_URL
+        value: https://n8n-revops.onrender.com/
