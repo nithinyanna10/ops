@@ -19,17 +19,11 @@ Minimal Render Blueprint for n8n **1.111.0** (pinned to avoid 2.x task-runner/Py
 
 Save `N8N_ENCRYPTION_KEY` — do not change it after first deploy.
 
-## Remove stale env vars in Render
+## Fix task broker / DB timeout logs
 
-In **Environment**, delete if present (leftover from older configs):
+If logs show **Task Broker port 5679**, **Python runner**, or **Database connection timed out**, see **[RENDER_ENV_CLEANUP.md](./RENDER_ENV_CLEANUP.md)** — you are on n8n 2.x or stale env vars, not the pinned `1.111.0` image.
 
-- `N8N_RUNNERS_ENABLED`
-- `N8N_RUNNERS_MODE`
-- `N8N_RUNNERS_GRANT_TOKEN_TTL`
-- `N8N_RUNNERS_BROKER_PORT`
-- `N8N_PYTHON_ENABLED`
-
-This MVP does not use task runners.
+**Critical:** Delete `N8N_RUNNERS_ENABLED` from Render Environment (do not set it to `false`). Remove all `DB_POSTGRESDB_*` vars unless you add a Render Postgres database.
 
 ## HTTP 503 / 502?
 
