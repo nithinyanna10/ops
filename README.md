@@ -31,6 +31,14 @@ In **Environment**, delete if present (leftover from older configs):
 
 This MVP does not use task runners.
 
+## HTTP 503 / 502?
+
+Render health checks hit `healthCheckPath` **without** basic-auth credentials. If it is `/`, n8n returns **401** and Render marks the instance unhealthy → **503** in the browser.
+
+This blueprint uses `/healthz` (public, returns 200). After changing `render.yaml`, run **Manual Deploy → Clear build cache & deploy**.
+
+Also ensure `N8N_HOST` and `WEBHOOK_URL` match your real `*.onrender.com` hostname (not a placeholder).
+
 ## Free tier notes
 
 - Instances **sleep** after ~15 minutes idle; first request after sleep is slow.

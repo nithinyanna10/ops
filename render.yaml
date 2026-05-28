@@ -4,7 +4,8 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /
+    # Must be unauthenticated; / returns 401 with basic auth and breaks Render health checks
+    healthCheckPath: /healthz
     envVars:
       - key: N8N_PROTOCOL
         value: https
@@ -31,8 +32,7 @@ services:
       - key: N8N_PERSONALIZATION_ENABLED
         value: false
 
-      # Update these after Render gives you the final service URL
       - key: N8N_HOST
-        value: n8n-revops.onrender.com
+        value: n8n-qoma.onrender.com
       - key: WEBHOOK_URL
-        value: https://n8n-revops.onrender.com/
+        value: https://n8n-qoma.onrender.com/
