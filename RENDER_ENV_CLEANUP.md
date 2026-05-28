@@ -3,7 +3,7 @@
 Your logs show **n8n 2.x** behavior (task broker on 5679, Python runner, new migrations).
 That means Render is **not** running the pinned `1.111.0` Docker build yet, and/or stale env vars remain.
 
-## Delete these in Render → n8n-qoma → Environment
+## Delete these in Render → n8n-revops → Environment
 
 Remove every variable below if it exists (Blueprint does **not** delete old keys automatically):
 
@@ -54,5 +54,5 @@ You **should** see:
 
 ```text
 Editor is now accessible via:
-https://n8n-qoma.onrender.com
+https://n8n-revops.onrender.com
 ```

@@ -1,7 +1,7 @@
 # Pull pinned image directly — do NOT use n8nio/n8n:latest (2.x task runners break free tier)
 services:
   - type: web
-    name: n8n-qoma
+    name: n8n-revops
     runtime: image
     plan: free
     image:
@@ -33,6 +33,6 @@ services:
       - key: N8N_PERSONALIZATION_ENABLED
         value: false
       - key: N8N_HOST
-        value: n8n-qoma.onrender.com
+        value: n8n-revops.onrender.com
       - key: WEBHOOK_URL
-        value: https://n8n-qoma.onrender.com/
+        value: https://n8n-revops.onrender.com/
