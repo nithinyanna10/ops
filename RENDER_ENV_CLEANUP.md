@@ -29,13 +29,16 @@ Remove every variable below if it exists (Blueprint does **not** delete old keys
 - `DB_POSTGRESDB_SCHEMA`
 - `DATABASE_URL`
 
-## Confirm deploy uses this repo's Dockerfile
+## Confirm the image is 1.111.0 (not latest)
 
-Render → **Settings** → Build & Deploy:
+Render → **Settings** → **Image** (or Build & Deploy):
 
-- **Language:** Docker
-- **Dockerfile path:** `./Dockerfile`
-- **Not** "Existing Image" / `n8nio/n8n:latest`
+- **Must be:** `docker.io/n8nio/n8n:1.111.0`
+- **Must NOT be:** `docker.io/n8nio/n8n:latest` or `n8nio/n8n:latest`
+
+This repo uses Blueprint `runtime: image` (no Dockerfile build on Render).
+
+If Blueprint sync does not update the image, set it manually in the dashboard, then **Manual Deploy**.
 
 Then: **Manual Deploy** → **Clear build cache & deploy**.
 

@@ -45,4 +45,5 @@ Also ensure `N8N_HOST` and `WEBHOOK_URL` match your real `*.onrender.com` hostna
 | File | Purpose |
 |------|---------|
 | `render.yaml` | Blueprint: Docker web service, port 5678, basic auth |
-| `Dockerfile` | Pins `n8nio/n8n:1.111.0` |
+| `render.yaml` | `runtime: image` → `docker.io/n8nio/n8n:1.111.0` (not `latest`) |
+| `Dockerfile` | Local reference only; Render uses the image URL above |
